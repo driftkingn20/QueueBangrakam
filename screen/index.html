@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>จุดคัดกรอง</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../dist/main.css" />
+    <link rel="stylesheet" href="../dist/bootstrap3/bootstrap.min.css" />
+    <style>
+      .blink {
+        opacity: 0;
+      }
+    </style>
+  </head>
+
+  <body style="background-color: #551d80;">
+    <div
+    style="height: 450px;width: 60%;background-color:darkblue; 
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-size: 250px;
+    color: white;
+    font-weight: bolder;
+    display: flex;
+    align-items: center;
+    justify-content: center"
+    id="popup"
+  ></div>
+
+    <div id="main">
+      <div class="flex-fill">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-7">
+              <div id="wait-list">
+                <table id="customers">
+                  <thead>
+                    <tr>
+                      <th width="20%">หมายเลข</th>
+                      <th width="50%">ชื่อ - สกุล</th>
+                      <th width="30%">ประมาณ</th>
+                    </tr>
+                  </thead>
+                  <tbody id="wait">
+                    <tr>
+                      <td
+                        width="20%"
+                        style="text-align: center;color:blue;font-weight: 900;"
+                      >
+                        <b> -</b>
+                      </td>
+                      <td width="50%">ddddd ddd</td>
+                      <td width="30%" style="text-align: center;">
+                        -
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        width="20%"
+                        style="text-align: center;color:blue;font-weight: 900;"
+                      >
+                        <b> -</b>
+                      </td>
+                      <td width="50%">ddddd ddd</td>
+                      <td width="30%" style="text-align: center;">
+                        -
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        width="20%"
+                        style="text-align: center;color:blue;font-weight: 900;"
+                      >
+                        <b> -</b>
+                      </td>
+                      <td width="50%">ddddd ddd</td>
+                      <td width="30%" style="text-align: center;">
+                        -
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        width="20%"
+                        style="text-align: center;color:blue;font-weight: 900;"
+                      >
+                        <b> -</b>
+                      </td>
+                      <td width="50%">ddddd ddd</td>
+                      <td width="30%" style="text-align: center;">
+                        -
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        width="20%"
+                        style="text-align: center;color:blue;font-weight: 900;"
+                      >
+                        <b> -</b>
+                      </td>
+                      <td width="50%">ddddd ddd</td>
+                      <td width="30%" style="text-align: center;">
+                        -
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        width="20%"
+                        style="text-align: center;color:blue;font-weight: 900;"
+                      >
+                        <b> -</b>
+                      </td>
+                      <td width="50%">ddddd ddd</td>
+                      <td width="30%" style="text-align: center;">
+                        -
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        width="20%"
+                        style="text-align: center;color:blue;font-weight: 900;"
+                      >
+                        <b> -</b>
+                      </td>
+                      <td width="50%">ddddd ddd</td>
+                      <td width="30%" style="text-align: center;">
+                        -
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        width="20%"
+                        style="text-align: center;color:blue;font-weight: 900;"
+                      >
+                        <b> -</b>
+                      </td>
+                      <td width="50%">ddddd ddd</td>
+                      <td width="30%" style="text-align: center;">
+                        -
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        width="20%"
+                        style="text-align: center;color:blue;font-weight: 900;"
+                      >
+                        <b> -</b>
+                      </td>
+                      <td width="50%">ddddd ddd</td>
+                      <td width="30%" style="text-align: center;">
+                        -
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        width="20%"
+                        style="text-align: center;color:blue;font-weight: 900;"
+                      >
+                        <b> -</b>
+                      </td>
+                      <td width="50%">ddddd ddd</td>
+                      <td width="30%" style="text-align: center;">
+                        -
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="col-sm-5">
+              <div>
+                <div class="box">
+                  <div class="box-part text-center">
+                    <div class="title" style="text-align: left;">
+                      <span class="label labelcolor">โต๊ะ-1</span>
+                      <span class="queue sc1 q" style="color: crimson;font-weight: bolder;">-</span>
+                    </div>
+                    <div class="text">
+                      <span
+                        class="sc1 name"
+                        style="color: black;font-size: 42px;font-weight: bold;"
+                      >-</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="box">
+                  <div class="box-part text-center">
+                    <div class="title" style="text-align: left;">
+                      <span class="label labelcolor1">โต๊ะ-2</span>
+                      <span class="queue sc2 q" style="color: crimson">-</span>
+                    </div>
+                    <div class="text">
+                      <span
+                        class="sc2 name"
+                        style="color: black;font-size: 42px;font-weight: bold;"
+                      >-</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="box">
+                  <div class="box-part text-center">
+                    <div class="title" style="text-align: left;">
+                      <span class="label labelcolor3">โต๊ะ-3</span>
+                      <span class="queue sc3 q" style="color: crimson">-</span>
+                    </div>
+                    <div class="text">
+                      <span
+                        class="sc3 name"
+                        style="color: black;font-size: 42px;font-weight: bold;"
+                      >-</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="box">
+                    <div class="box-part text-center">
+                      <div class="title" style="text-align: left;">
+                        <span class="label labelcolor5">โต๊ะ-4</span>
+                        <span class="queue sc4 q" style="color: crimson">-</span>
+                      </div>
+                      <div class="text">
+                        <span
+                          class="sc4 name"
+                          style="color: black;font-size: 42px;font-weight: bold;"
+                        >-</span>
+                      </div>
+                    </div>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <footer class="footer">
+              <div
+                class="fixed-bottom"
+                style="position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 70px;
+            text-align: center;"
+              >
+                <div style="background-color:black;" id="textMarquee"></div>
+              </div>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../dist/jquery.min.js"></script>
+    <!-- <script src="../dist/jquery-1.12.4.min.js"></script> -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="../dist/bootstrap3/bootstrap.min.js"></script>
+    <script src="../dist/socket.io.js"></script>
+    <script>
+      function blinkX(callback, delay, repetitions) {
+        var x = 0;
+        var intervalID = window.setInterval(function() {
+          callback();
+          if (++x === repetitions) {
+            window.clearInterval(intervalID);
+          }
+        }, delay);
+      }
+
+      function calling(q) {
+        $("#popup").html(q);
+        $("#main").hide();
+        $("#popup").fadeIn();
+        setTimeout(function() {
+          $("#popup").hide();
+          $("#main").show();
+        }, 5000);
+      }
+
+      $(document).ready(function() {
+        $("#popup").hide();
+        var socket = io("http://192.168.191.101:19009");
+        //  $("#wait").load("wait.php");
+        $("#textMarquee").load("marquee.php");
+
+        socket.on("sc1", function(q) {
+          $("#wait").load("wait.php?n=0");
+          if (q != "s99999") {
+            calling(q);
+            $(".sc1.q").load("calling_q.php?q=" + q);
+            $(".sc1.name").load("calling_name.php?q=" + q);
+            blinkX(
+              function() {
+                $(".sc1").toggleClass("blink");
+              },
+              650,
+              22
+            );
+          }
+        });
+
+        socket.on("sc2", function(q) {
+          $("#wait").load("wait.php?n=0");
+          if (q != "s99999") {
+            calling(q);
+            $(".sc2.q").load("calling_q.php?q=" + q);
+            $(".sc2.name").load("calling_name.php?q=" + q);
+            blinkX(
+              function() {
+                $(".sc2").toggleClass("blink");
+              },
+              650,
+              22
+            );
+          }
+        });
+
+        socket.on("sc3", function(q) {
+          $("#wait").load("wait.php?n=0");
+          if (q != "s99999") {
+            calling(q);
+            $(".sc3.q").load("calling_q.php?q=" + q);
+            $(".sc3.name").load("calling_name.php?q=" + q);
+            blinkX(
+              function() {
+                $(".sc3").toggleClass("blink");
+              },
+              650,
+              22
+            );
+          }
+        });
+
+
+        // loop ดูคนรอทุกคน
+        var n = 0;
+        var timmer = setInterval(function() {
+          if (n == 10) n = 0;
+          $("#wait").load("wait.php?n=" + n);
+          n++;
+        }, 30000);
+      });
+    </script>
+  </body>
+</html>
