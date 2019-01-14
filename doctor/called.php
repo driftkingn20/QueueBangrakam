@@ -5,7 +5,7 @@ $depcode = '002';
 
 // 1
 $sql = "SELECT
-q.depq,q.fullname,q.`name`,t.stationno
+q.depq,q.fullname,q.`name`,t.stationno,q.*
 FROM
 ovst_queue_server q
 inner join ovst_queue_server_time t on t.vn = q.vn
@@ -19,10 +19,11 @@ t.time_start desc limit 7";
 
 $query = mysqli_query($objCon, $sql);
 while ($result2 = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
+    $level = $result2["dep_level"];
     ?>
-<tr style="text-align: center;
-                  vertical-align: middle;">
-                    <td width="30%"><?=$result2['depq']?></td>
+<tr>
+                    <td width="30%" style="text-align: center;
+                  vertical-align: middle;"><?=$result2['depq']?></td>
                     <td width="5%"><?php
 if ($level == '3') {
         echo '<img class="center" src="../dist/img/grand.png" height="40px" />';
@@ -37,7 +38,7 @@ if ($level == '3') {
     }
 
     ?></td>
-                    <td width="65%"><?=$result2['fullname']?></td>
+                    <td width="65%" style="font-size:.8em;" style="text-align: left;"><?=$result2['fullname']?></td>
                     </tr>
 
 <?php

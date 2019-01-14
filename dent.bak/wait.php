@@ -1,7 +1,7 @@
 <?php
 require "../db.php";
 
-$depcode = '001';
+$depcode = '008';
 
 $sql = "SELECT
 
@@ -75,10 +75,8 @@ $counter = 0;
 while ($result2 = mysqli_fetch_array($query2, MYSQLI_ASSOC)) {
     $called = $result2["called"];
 
-    $div = $counter / $dep;
-    $x = floor($div);
+    $x = ($dep + ($counter)) - $dep;
     $sumtime = ((round($x) + $called)) * $time + $dateDiff;
-
     $level = $result2["dep_level"];
     $vn = $result2["vn"];
     $sqlupdate = "UPDATE ovst_queue_server
@@ -88,16 +86,16 @@ while ($result2 = mysqli_fetch_array($query2, MYSQLI_ASSOC)) {
     ?>
       <tr>
 
-          <td width="20%" style="text-align: center;color:blue;font-weight: 900;"><b>
-                  <?=$result2["depq"];
+<td width="20%" style="text-align: center;color:blue;font-weight: 900;"><b>
+        <?=$result2["depq"];
     ?></b></td>
-            <td width="50%" style="font-size:.7em;"><?=$result2["fullname"];?></td>
-          <td width="30%" style="text-align: center;font-size:.7em;">
-              <?php //echo $sumtime;
+  <td width="50%"><?=$result2["fullname"];?></td>
+<td width="30%" style="text-align: center;">
+    <?php //echo $sumtime;
     echo convertToHoursMins($sumtime);
     ?>
-          </td>
-      </tr>
+</td>
+</tr>
       <?php
 $counter++;
 }

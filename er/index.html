@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>หน้าจอห้องฉุกเฉิน</title>
+
+  <!-- Bootstrap -->
+  <link href="../dist/bootstrap3/bootstrap.min.css" rel="stylesheet">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="../dist/main.css" />
+  <!-- <link href="waiterstyle.css" rel="stylesheet"> -->
+  <link href="../dist/FontAwesome/css/all.css" rel="stylesheet">
+  <style>
+
+  </style>
+
+</head>
+
+<body style="background-color: #551d80;">
+  <div style="height: 530px;width: 60%;background-color:#1C6836; 
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-size: 220px;
+    color: white;
+    font-weight: bolder;
+    display: flex;
+    flex-direction:column;    
+    align-items: center;
+    justify-content: center;
+    padding:5px;
+    "
+    id="popup">
+
+    <div class="calling-q"></div>
+    <div style="font-size:120px;background-color: darkblue" class="calling-ch"></div>
+  </div>
+
+  <div id="main">
+    <div class="flex-fill">
+      <div class="container-fluid">
+        <div class="row">
+
+          <div class="col-sm-6">
+            <div class="row">
+              <div style="margin-left: 15px;">
+                <table id="customers">
+                  <thead>
+                    <tr>
+                      <th colspan="4" style="background-color:#652299;">รอเรียก</th>
+
+                    </tr>
+                  </thead>
+                  <tbody id="wait">
+                  </tbody>
+
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-sm-6">
+            
+                  <div style="margin-left: 15px;margin-right: 10px;">
+
+                    <table id="customers" style="text-align: center;">
+                      <tr style="background-color:green;">
+                        <td colspan="3"  style="font-weight: bold;color:white;">
+                            กำลังรับบริการ
+                        </td>
+                      </tr>
+
+                      <tbody id="call">
+                        <tr>
+                          <td width="20%">test</td>
+                          <td width="75%" style="text-align: left;">test</td>
+                          <td width="5%">test</td>
+                        </tr>
+                        <tr><td id="vertical" colspan="3">test</td></tr>
+                      </tbody>
+                    </table>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <footer class="footer">
+            <div class="fixed-bottom" style="position: fixed;
+              left: 0;
+              bottom: 0;
+              width: 100%;
+              height: 70px;
+              text-align: center;">
+              <div style="background-color:black;" id="textMarquee"></div>
+            </div>
+          </footer>
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="../dist/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="../dist/bootstrap3/bootstrap.min.js"></script>
+  <script src="../dist/socket.io.js"></script>
+  <script>
+    function blinkX(callback, delay, repetitions) {
+      var x = 0;
+      var intervalID = window.setInterval(function () {
+        callback();
+        if (++x === repetitions) {
+          window.clearInterval(intervalID);
+        }
+      }, delay);
+    }
+
+    function calling(q, ch) {
+      $("#popup .calling-q").html(q);
+      $("#popup .calling-ch").html(ch);
+      $("#main").hide();
+      $("#popup").fadeIn();
+      setTimeout(function () {
+        $("#popup").hide();
+        $("#main").show();
+      }, 10000);
+    }
+
+
+    $(document).ready(function () {
+
+      $("#popup").hide();
+      var socket = io("http://192.168.191.101:19009");
+      $("#wait").load("wait.php");
+      $("#call").load("call.php");
+      $("#textMarquee").load("marquee.php");
+
+      socket.on("er1", function (data) {
+
+        $("#wait").load("wait.php");
+        $("#call").load("call.php");
+        if (q != "s99999") {
+          calling(q, "ช่อง-1");
+          $(".er1.q").load("calling_q.php?q=" + q);
+          $(".er1.name").load("calling_name.php?q=" + q);
+          blinkX(
+            function () {
+              $(".er1").toggleClass("blink");
+            },
+            650,
+            22
+          );
+        }
+      });
+
+    });
+  </script>
+</body>
+
+</html>

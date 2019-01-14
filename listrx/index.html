@@ -16,41 +16,33 @@
 
   <body style="background-color: #551d80;">
     <div
-    style="height: 530px;width: 60%;background-color:#1C6836; 
+    style="height: 450px;width: 60%;background-color:#1C6836; 
     position: absolute;
     left: 50%;
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    font-size: 220px;
+    font-size: 250px;
     color: white;
     font-weight: bolder;
     display: flex;
-    flex-direction:column;    
     align-items: center;
-    justify-content: center;
-    padding:5px;
-    "   
+    justify-content: center"
     id="popup"
-  >
- 
-<div class="calling-q"  ></div>
-<div style="font-size:120px;background-color: darkblue" class="calling-ch"></div>
-</div>
+  ></div>
 
     <div id="main">
       <div class="flex-fill">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-sm-7">
+            <div class="col-sm-12">
               <div id="wait-list">
                 <table id="customers">
                   <thead>
                     <tr>
-                      <th width="15%">เวลามา</th>
-                      <th width="10%" >หมายเลข</th>
+                      <th width="20%" >หมายเลข</th>
                       <th width="50%" >ชื่อ - สกุล</th>
-                      <th width="25%" >ประมาณ</th>
+                      <th width="30%" >ประมาณ</th>
                     </tr>
                   </thead>
                   <tbody id="wait">
@@ -178,65 +170,9 @@
                 </table>
               </div>
             </div>
-            <div class="col-sm-5">
-              <div>
-                <div class="box" style="padding-top:0.5cm;">
-                  <div class="box-part text-center" style="height:180px;">
-                    <div class="title" style="text-align: left;margin-top: -20px;">
-                      <span class="label" style="background-color:#1C6836">ช่อง-1</span>
-                      
-                    </div>
-                    <div class="text">
-                        <span class="queue rx1 q" style="color: black;font-size: 4em;font-weight: bolder">-</span><br />
-                        <span class="rx1 name" style="color: black;font-size: 2.5em;font-weight: bold">-</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="box" style="padding-top:0.5cm;">
-                  <div class="box-part text-center" style="height:180px;">
-                    <div class="title" style="text-align: left;margin-top: -20px;">
-                      <span class="label"  style="background-color:#1C6836">ช่อง-2</span>
-                      
-                    </div>
-                    <div class="text">
-                        <span class="queue rx2 q" style="color: black;font-size: 4em;font-weight: bolder">-</span><br />
-                        <span class="rx2 name" style="color: black;font-size: 2.5em;font-weight: bold">-</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="box" style="padding-top:0.5cm;">
-                  <div class="box-part text-center" style="height:180px;">
-                    <div class="title" style="text-align: left;margin-top: -20px;">
-                      <span class="label"  style="background-color:#1C6836">ช่อง-3</span>
-                      
-                    </div>
-                    <div class="text">
-                        <span class="queue rx3 q" style="color: black;font-size: 4em;font-weight: bolder">-</span><br />
-                        <span class="rx3 name" style="color: black;font-size: 2.5em;font-weight: bold">-</span>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
+            
           </div>
 
-          <div class="row">
-            <footer class="footer">
-              <div
-                class="fixed-bottom"
-                style="position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            height: 70px;
-            text-align: center;"
-              >
-                <div style="background-color:black;" id="textMarquee"></div>
-              </div>
-            </footer>
-          </div>
         </div>
       </div>
     </div>
@@ -259,16 +195,15 @@
         }, delay);
       }
 
-      function calling(q,ch) {
-        $("#popup .calling-q").html(q);
-        $("#popup .calling-ch").html(ch);
-        $("#main").hide();
-        $("#popup").fadeIn();
-        setTimeout(function() {
-          $("#popup").hide();
-          $("#main").show();
-        }, 10000);
-      }
+      // function calling(q) {
+      //   $("#popup").html(q);
+      //   $("#main").hide();
+      //   $("#popup").fadeIn();
+      //   setTimeout(function() {
+      //     $("#popup").hide();
+      //     $("#main").show();
+      //   }, 10000);
+      // }
 
       $(document).ready(function() {
         $("#popup").hide();
@@ -277,60 +212,17 @@
         $("#textMarquee").load("marquee.php");
 
         socket.on("rx1", function(q) {
-          $("#wait").load("wait.php?n=0");
-          if (q != "s99999") {
-            calling(q,"ช่อง-1");
-            $(".rx1.q").load("calling_q.php?q=" + q);
-            $(".rx1.name").load("calling_name.php?q=" + q);
-            blinkX(
-              function() {
-                $(".rx1").toggleClass("blink");
-              },
-              650,
-              22
-            );
-          }
+          $("#wait").load("wait.php");
         });
 
         socket.on("rx2", function(q) {
-          $("#wait").load("wait.php?n=0");
-          if (q != "s99999") {
-            calling(q,"ช่อง-2");
-            $(".rx2.q").load("calling_q.php?q=" + q);
-            $(".rx2.name").load("calling_name.php?q=" + q);
-            blinkX(
-              function() {
-                $(".rx2").toggleClass("blink");
-              },
-              650,
-              22
-            );
-          }
+          $("#wait").load("wait.php");
         });
 
         socket.on("rx3", function(q) {
-          $("#wait").load("wait.php?n=0");
-          if (q != "s99999") {
-            calling(q,"ช่อง-3");
-            $(".rx3.q").load("calling_q.php?q=" + q);
-            $(".rx3.name").load("calling_name.php?q=" + q);
-            blinkX(
-              function() {
-                $(".rx3").toggleClass("blink");
-              },
-              650,
-              22
-            );
-          }
+          $("#wait").load("wait.php");
         });
 
-        // loop ดูคนรอทุกคน
-        var n = 0;
-        var timmer = setInterval(function() {
-          if (n == 10) n = 0;
-          $("#wait").load("wait.php?n=" + n);
-          n++;
-        }, 10000);
       });
     </script>
   </body>

@@ -16,20 +16,27 @@
 
   <body style="background-color: #551d80;">
     <div
-    style="height: 450px;width: 60%;background-color:darkblue; 
+    style="height: 530px;width: 60%;background-color:#1A237E; 
     position: absolute;
     left: 50%;
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    font-size: 250px;
+    font-size: 220px;
     color: white;
     font-weight: bolder;
     display: flex;
+    flex-direction:column;    
     align-items: center;
-    justify-content: center"
+    justify-content: center;
+    padding:5px;
+    "   
     id="popup"
-  ></div>
+  >
+ 
+<div class="calling-q"  ></div>
+<div style="font-size:120px;background-color: #3F51B5" class="calling-ch"></div>
+</div>
 
     <div id="main">
       <div class="flex-fill">
@@ -174,14 +181,14 @@
               <div>
                 <div class="box">
                   <div class="box-part text-center">
-                    <div class="title" style="text-align: left;">
-                      <span class="label labelcolor">โต๊ะ-1</span>
-                      <span class="queue sc1 q" style="color: crimson;font-weight: bolder;">-</span>
+                    <div class="title" style="text-align: left;margin-top: 0px;">
+                      <span class="label labelcolor" style="font-size:3em;">โต๊ะ-1</span>
+                      <span class="queue sc1 q" style="color: crimson;font-weight: bolder;font-size:3em;">-</span>
                     </div>
                     <div class="text">
                       <span
                         class="sc1 name"
-                        style="color: black;font-size: 42px;font-weight: bold;"
+                        style="color: black;font-size: 2em;font-weight: bold;"
                       >-</span>
                     </div>
                   </div>
@@ -189,14 +196,14 @@
 
                 <div class="box">
                   <div class="box-part text-center">
-                    <div class="title" style="text-align: left;">
-                      <span class="label labelcolor1">โต๊ะ-2</span>
-                      <span class="queue sc2 q" style="color: crimson">-</span>
+                    <div class="title" style="text-align: left;margin-top: 0px;">
+                      <span class="label labelcolor1" style="font-size:3em;">โต๊ะ-2</span>
+                      <span class="queue sc2 q" style="color: crimson;font-weight: bolder;font-size:3em;">-</span>
                     </div>
                     <div class="text">
                       <span
                         class="sc2 name"
-                        style="color: black;font-size: 42px;font-weight: bold;"
+                        style="color: black;font-size: 2em;font-weight: bold;"
                       >-</span>
                     </div>
                   </div>
@@ -204,28 +211,43 @@
 
                 <div class="box">
                   <div class="box-part text-center">
-                    <div class="title" style="text-align: left;">
-                      <span class="label labelcolor3">โต๊ะ-3</span>
-                      <span class="queue sc3 q" style="color: crimson">-</span>
+                    <div class="title" style="text-align: left;margin-top: 0px;">
+                      <span class="label labelcolor3" style="font-size:3em;">โต๊ะ-3</span>
+                      <span class="queue sc3 q" style="color: crimson;font-weight: bolder;font-size:3em;">-</span>
                     </div>
                     <div class="text">
                       <span
                         class="sc3 name"
-                        style="color: black;font-size: 42px;font-weight: bold;"
+                        style="color: black;font-size: 2em;font-weight: bold;"
                       >-</span>
                     </div>
                   </div>
                 </div>
                 <div class="box">
                     <div class="box-part text-center">
-                      <div class="title" style="text-align: left;">
-                        <span class="label labelcolor5">โต๊ะ-4</span>
-                        <span class="queue sc4 q" style="color: crimson">-</span>
+                      <div class="title" style="text-align: left;margin-top: 0px;">
+                        <span class="label labelcolor5" style="font-size:3em;">โต๊ะ-4</span>
+                        <span class="queue sc4 q" style="color: crimson;font-weight: bolder;font-size:3em;">-</span>
                       </div>
                       <div class="text">
                         <span
                           class="sc4 name"
-                          style="color: black;font-size: 42px;font-weight: bold;"
+                          style="color: black;font-size: 2em;font-weight: bold;"
+                        >-</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="box">
+                    <div class="box-part text-center">
+                      <div class="title" style="text-align: left;margin-top: 0px;">
+                        <span class="label labelcolor2" style="font-size:3em;">โต๊ะ-5</span>
+                        <span class="queue sc5 q" style="color: crimson">-</span>
+                      </div>
+                      <div class="text">
+                        <span
+                          class="sc5 name"
+                          style="color: black;font-size: 2em;font-weight: bold;"
                         >-</span>
                       </div>
                     </div>
@@ -272,8 +294,9 @@
         }, delay);
       }
 
-      function calling(q) {
-        $("#popup").html(q);
+      function calling(q,ch) {
+        $("#popup .calling-q").html(q);
+        $("#popup .calling-ch").html(ch);
         $("#main").hide();
         $("#popup").fadeIn();
         setTimeout(function() {
@@ -285,13 +308,13 @@
       $(document).ready(function() {
         $("#popup").hide();
         var socket = io("http://192.168.191.101:19009");
-        //  $("#wait").load("wait.php");
+         $("#wait").load("wait.php");
         $("#textMarquee").load("marquee.php");
 
         socket.on("sc1", function(q) {
           $("#wait").load("wait.php?n=0");
           if (q != "s99999") {
-            calling(q);
+            calling(q,"โต๊ะ-1");
             $(".sc1.q").load("calling_q.php?q=" + q);
             $(".sc1.name").load("calling_name.php?q=" + q);
             blinkX(
@@ -307,7 +330,7 @@
         socket.on("sc2", function(q) {
           $("#wait").load("wait.php?n=0");
           if (q != "s99999") {
-            calling(q);
+            calling(q,"โต๊ะ-2");
             $(".sc2.q").load("calling_q.php?q=" + q);
             $(".sc2.name").load("calling_name.php?q=" + q);
             blinkX(
@@ -323,7 +346,7 @@
         socket.on("sc3", function(q) {
           $("#wait").load("wait.php?n=0");
           if (q != "s99999") {
-            calling(q);
+            calling(q,"โต๊ะ-3");
             $(".sc3.q").load("calling_q.php?q=" + q);
             $(".sc3.name").load("calling_name.php?q=" + q);
             blinkX(
@@ -336,6 +359,36 @@
           }
         });
 
+        socket.on("sc4", function(q) {
+          $("#wait").load("wait.php?n=0");
+          if (q != "s99999") {
+            calling(q,"โต๊ะ-4");
+            $(".sc4.q").load("calling_q.php?q=" + q);
+            $(".sc4.name").load("calling_name.php?q=" + q);
+            blinkX(
+              function() {
+                $(".sc4").toggleClass("blink");
+              },
+              650,
+              22
+            );
+          }
+        });
+        socket.on("sc5", function(q) {
+          $("#wait").load("wait.php?n=0");
+          if (q != "s99999") {
+            calling(q,"โต๊ะ-5");
+            $(".sc5.q").load("calling_q.php?q=" + q);
+            $(".sc5.name").load("calling_name.php?q=" + q);
+            blinkX(
+              function() {
+                $(".sc5").toggleClass("blink");
+              },
+              650,
+              22
+            );
+          }
+        });
 
         // loop ดูคนรอทุกคน
         var n = 0;

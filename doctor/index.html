@@ -17,19 +17,28 @@
 </head>
 
 <body style="background-color: #551d80;">
-  <div style="height: 450px;width: 60%;background-color:darkblue; 
+  <div
+    style="height: 530px;width: 60%;background-color:#1A237E; 
     position: absolute;
     left: 50%;
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    font-size: 250px;
+    font-size: 220px;
     color: white;
     font-weight: bolder;
     display: flex;
+    flex-direction:column;    
     align-items: center;
-    justify-content: center"
-    id="popup"></div>
+    justify-content: center;
+    padding:5px;
+    "   
+    id="popup"
+  >
+ 
+<div class="calling-q"  ></div>
+<div style="font-size:120px;background-color: #3F51B5" class="calling-ch"></div>
+</div>
 
   <div id="main">
     <div class="flex-fill">
@@ -42,7 +51,7 @@
                   <td colspan="3" style="padding: 0px;text-align: center;font-size: 50px;background-color:orangered;color:white;">รอเรียก</td>
                 </tr>
                 
-                <tbody id="wait">
+                <tbody id="wait" >
                   <tr style="text-align: center; 
                   vertical-align: middle;">
                     <td width="30%">test</td>
@@ -95,7 +104,7 @@
             <div>
               <table id="customers">
                 <tr>
-                  <td colspan="2" style="padding: 0px;text-align: center;font-size: 50px;background-color:#2e9c12;color:white;">รอพบแพทย์</td>
+                  <td colspan="3" style="padding: 0px;text-align: center;font-size: 50px;background-color:#2e9c12;color:white;">รอพบแพทย์</td>
                 </tr>
 
                 
@@ -177,8 +186,9 @@
       }, delay);
     }
 
-    function calling(q) {
-      $("#popup").html(q);
+    function calling(q,ch) {
+        $("#popup .calling-q").html(q);
+        $("#popup .calling-ch").html(ch);
       $("#main").hide();
       $("#popup").fadeIn();
       setTimeout(function () {
@@ -190,15 +200,15 @@
     $(document).ready(function () {
       $("#popup").hide();
       var socket = io("http://192.168.191.101:19009");
-      //  $("#wait").load("wait.php");
-      //  $("#called").load("called.php");
+       $("#wait").load("wait.php");
+       $("#called").load("called.php");
       $("#textMarquee").load("marquee.php");
 
       socket.on("dx1", function (q) {
         $("#wait").load("wait.php?n=0");
         $("#called").load("called.php");
         if (q != "s99999") {
-          calling(q);
+          calling(q,"ห้องตรวจโรค");
           // $(".dx1.q").load("calling_q.php?q=" + q);
           // $(".dx1.name").load("calling_name.php?q=" + q);
           blinkX(

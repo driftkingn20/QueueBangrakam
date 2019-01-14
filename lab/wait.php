@@ -6,27 +6,27 @@ $depcode = '007';
 $sql = "SELECT
 
 (
-SELECT
-if(count(t2.vn) > 0,1,0) called
+    SELECT
+IF
+	( count( t2.vn ) > 0, 1, 0 ) called
 FROM
-ovst_queue_server_time t2
-LEFT JOIN ovst_queue_server q2 ON q2.vn = t2.vn
+	ovst_queue_server_dep t2
 WHERE
-q2.date_visit = CURDATE()
-AND q2.dep = '$depcode'
-AND MOD ( t2.STATUS, 2 ) = 1  AND t2.stationno IS not NULL
+	t2.date_visit = CURDATE( )
+	AND t2.stationno IS not NULL
+	and t2.dep_visit = 'lab'
+	and t2.status = '1'
 ) called,q.*
 
 FROM
-ovst_queue_server q
+ovst_queue_server_dep q
 WHERE
-mod(q.status,2) = 1
-AND q.date_visit = CURDATE()
+q.date_visit = CURDATE()
 AND q.stationno IS NULL
-and q.dep = '$depcode'
+and q.dep_visit = 'lab'
 ORDER BY
-q.dep_level desc, q.time_visit asc
-	LIMIT 6";
+ q.time_visit asc
+	LIMIT 10";
 
 $query2 = mysqli_query($objCon, $sql);
 
@@ -75,9 +75,10 @@ $counter = 0;
 while ($result2 = mysqli_fetch_array($query2, MYSQLI_ASSOC)) {
     $called = $result2["called"];
 
-    $x = ($dep + ($counter)) - $dep;
+    $div = $counter / $dep;
+    $x = floor($div);
     $sumtime = ((round($x) + $called)) * $time + $dateDiff;
-    $level = $result2["dep_level"];
+
     $vn = $result2["vn"];
     $sqlupdate = "UPDATE ovst_queue_server
   SET wait_dep='$sumtime'

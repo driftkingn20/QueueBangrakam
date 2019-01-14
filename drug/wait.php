@@ -73,7 +73,9 @@ $counter = 0;
 while ($result2 = mysqli_fetch_array($query2, MYSQLI_ASSOC)) {
     $called = $result2["called"];
 
-    $x = ($dep + ($counter)) - $dep;
+    $div = $counter / $dep;
+    $x = floor($div);
+
     $sumtime = ((round($x) + $called)) * $time + $dateDiff;
 
     $vn = $result2["vn"];
@@ -83,14 +85,15 @@ while ($result2 = mysqli_fetch_array($query2, MYSQLI_ASSOC)) {
     $queryupdate = mysqli_query($objCon, $sqlupdate);
     ?>
       <tr>
-
-<td width="20%" style="text-align: center;color:blue;font-weight: 900;"><b>
+<td width="15%"> <?php echo date("H:i", strtotime($result2["time_visit"])); ?></td>
+<td width="10%" style="text-align: center;color:blue;font-weight: 900;"><b>
         <?=$result2["depq"];
     ?></b></td>
   <td width="50%"><?=$result2["fullname"];?></td>
-<td width="30%" style="text-align: center;">
+<td width="25%" style="text-align: center;">
     <?php //echo $sumtime;
     echo convertToHoursMins($sumtime);
+
     ?>
 </td>
 </tr>

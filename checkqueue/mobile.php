@@ -1,4 +1,7 @@
 <?php require "../db.php";
+$s_getname = "SELECT hospitalname as hname FROM opdconfig;";
+$q_getname = mysqli_query($objCon, $s_getname);
+$r_getname = mysqli_fetch_array($q_getname, MYSQLI_ASSOC);
 
 $vn = null;
 //$vn = '620107105612';
@@ -53,10 +56,11 @@ function convertToHoursMins($sumtime)
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
+    <meta http-equiv="refresh" content="15" />
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>โรงพยาบาลจิตเวชเลยราชนครินทร์</title>
+    <title><?=$r_getname['hname'];?></title>
 
     <link rel="stylesheet" href="../dist/bootstrap3/bootstrap.min.css">
     <link rel="stylesheet" href="mobilestyle.css">
@@ -75,12 +79,12 @@ function convertToHoursMins($sumtime)
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="www.rploei.go.th" style="color:white;">โรงพยาบาลจิตเวชเลยราชนครินทร์</a>
+                <a class="navbar-brand" href="#" style="color:white;"><?=$r_getname['hname'];?></a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="booking/">ระบบจองคิวออนไลน์</a></li>
-                    
+
                 </ul>
             </div>
             <!--/.nav-collapse -->
@@ -111,7 +115,7 @@ left join lab_head l on q.vn = l.vn
 left join xray_head x on q.vn = x.vn
 left join kskdepartment k on k.depcode=v.cur_dep
 left join patient_image i on i.hn = q.hn
-where q.vn = '$vn' and v.vstdate = CURDATE()
+where q.vn = '$vn' and v.vstdate = CURDATE() and q.dep <> '999'
 group by q.vn";
 $query = mysqli_query($objCon, $sql);
 $result = mysqli_fetch_array($query, MYSQLI_ASSOC);
@@ -139,7 +143,13 @@ if (empty($result['image'])) {
 
                     <div class="tdata name">
                         <h2 class="text-center">HN :
-                            <?=$result['hn']?>
+                            <?php if($result){
+                                echo $result['hn'];
+                            } else {
+                                echo "ไม่พบข้อมูลบริการ/กลับบ้านแล้ว";
+                            }
+                            
+                            ?>
                         </h2>
                     </div>
 
@@ -217,14 +227,7 @@ if ($result['in_dep'] == '0' && !empty($result['stationno'])) {
     echo "<h2 class='text-center'>รออีก : " . $called . "คิว</h2>";
     echo convertToHoursMins($sumtime);
 }
-$rxSql = "select * from ovst_queue_server_dep where dep_visit = 'drug' and vn = $vn";
-$rxQuery = mysqli_query($objCon, $rxSql);
-$rxResult = mysqli_fetch_array($rxQuery, MYSQLI_ASSOC);
-if ($rxResult['status'] == '2') {
-    echo "<h2 class='text-center' style='color:red;'>เรียกรับยาแล้ว</h2>";
-} else {
-    echo "";
-}
+
 ?>
                             </div><!--  alert -->
                             <div class="tdata name">
@@ -257,6 +260,18 @@ if ($result['xray'] == '1') {
     echo "<div  style='padding: 13px 10px;background-color: green; color:#fff;width: 100%;font-size: 20px'>ไม่มีเอ็กซ์เรย์</div>";
 }
 
+?>
+<h3>สถานะรับยา</h3>
+                                    <?php
+$rxSql = "select * from ovst_queue_server_dep where dep_visit = 'drug' and vn = $vn";
+$rxQuery = mysqli_query($objCon, $rxSql);
+$rxResult = mysqli_fetch_array($rxQuery, MYSQLI_ASSOC);
+
+if ($rxResult['status'] == '2') {
+    echo "<div  style='padding: 13px 10px;background-color: red; color:#fff;width: 100%;font-size: 20px'>เรียกรับยาแล้ว</div>";
+} else {
+    echo "<div  style='padding: 13px 10px;background-color: green; color:#fff;width: 100%;font-size: 20px'>รอเรียก/ไม่มียา</div>";
+}
 ?>
                                 </div>
                             </div>

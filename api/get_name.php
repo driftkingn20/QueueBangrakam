@@ -24,6 +24,7 @@ $lname = $split[2];
 
 $arr = array($fname, $lname);
 $new_name = " '$arr[0] '$arr[1]";
+echo $new_name;
 
-$data = ['name' => $new_name];
-echo json_encode($data);
+//$data = ['name' => $new_name];
+//echo json_encode($data);

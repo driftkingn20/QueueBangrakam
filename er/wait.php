@@ -1,9 +1,7 @@
 <?php
 require "../db.php";
-
-$depcode = '001';
-
-$sql = "SELECT
+$depcode = '011';
+$sql2 = "SELECT
 
 (
 SELECT
@@ -26,13 +24,10 @@ AND q.stationno IS NULL
 and q.dep = '$depcode'
 ORDER BY
 q.dep_level desc, q.time_visit asc
-	LIMIT 10";
+	LIMIT 7";
 
-$query2 = mysqli_query($objCon, $sql);
+$query2 = mysqli_query($objCon, $sql2);
 
-?>
-
-<?php
 $sqlminute = "SELECT time_wait,time_start,dep_station from kskdepartment where depcode = '$depcode'";
 $queryminute = mysqli_query($objCon, $sqlminute);
 $resultminute = mysqli_fetch_array($queryminute, MYSQLI_ASSOC);
@@ -68,8 +63,11 @@ function convertToHoursMins($sumtime)
 
     return "-";
 }
-$Num_Rows = mysqli_num_rows($query2);
-// $startCount = 3;
+?>
+
+
+        <?php
+
 $counter = 0;
 
 while ($result2 = mysqli_fetch_array($query2, MYSQLI_ASSOC)) {
@@ -78,27 +76,45 @@ while ($result2 = mysqli_fetch_array($query2, MYSQLI_ASSOC)) {
     $div = $counter / $dep;
     $x = floor($div);
     $sumtime = ((round($x) + $called)) * $time + $dateDiff;
-
     $level = $result2["dep_level"];
     $vn = $result2["vn"];
     $sqlupdate = "UPDATE ovst_queue_server
   SET wait_dep='$sumtime'
   WHERE vn='$vn'";
     $queryupdate = mysqli_query($objCon, $sqlupdate);
-    ?>
-      <tr>
 
-          <td width="20%" style="text-align: center;color:blue;font-weight: 900;"><b>
-                  <?=$result2["depq"];
-    ?></b></td>
-            <td width="50%" style="font-size:.7em;"><?=$result2["fullname"];?></td>
-          <td width="30%" style="text-align: center;font-size:.7em;">
-              <?php //echo $sumtime;
-    echo convertToHoursMins($sumtime);
     ?>
-          </td>
-      </tr>
-      <?php
+        <tr>
+            <td width="15%" style="text-align: center;"><b>
+                    <?php echo date("H:i", strtotime($result2["time_visit"])); ?></b></td>
+            <td width="10%" style="text-align: center;color:#ff6600;"><b>
+                    <?=$result2["depq"];?></b></td>
+            <td width="10%">
+            <?php
+if ($level == 0) {
+        echo "<i class='far fa-circle fa-2x' aria-hidden='true' style='color:green'></i>";
+    } else
+    if ($level == 1) {
+        echo "<i class='fas fa-circle fa-2x' aria-hidden='true' style='color:#35f735'></i>";
+    } else
+    if ($level == 2) {
+        echo "<i class='fas fa-circle fa-2x' aria-hidden='true' style='color:#f7cd36'></i>";
+    } else
+    if ($level == 3) {
+        echo "<i class='fas fa-circle fa-2x' aria-hidden='true' style='color:pink'></i>";
+    } else
+    if ($level == 4) {
+        echo "<i class='fas fa-circle fa-2x' aria-hidden='true' style='color:#ff2b2b'></i>";
+    }
+
+    ?>
+            </td>
+            <td width="55%">
+                <?=$result2["fullname"];?>
+            </td>
+
+        </tr>
+        <?php
 $counter++;
 }
 ?>

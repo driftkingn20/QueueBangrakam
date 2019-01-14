@@ -16,20 +16,27 @@
 
   <body style="background-color: #551d80;">
     <div
-    style="height: 450px;width: 60%;background-color:darkblue; 
+    style="height: 530px;width: 60%;background-color:#1A237E; 
     position: absolute;
     left: 50%;
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    font-size: 250px;
+    font-size: 220px;
     color: white;
     font-weight: bolder;
     display: flex;
+    flex-direction:column;    
     align-items: center;
-    justify-content: center"
+    justify-content: center;
+    padding:5px;
+    "   
     id="popup"
-  ></div>
+  >
+ 
+<div class="calling-q"  ></div>
+<div style="font-size:120px;background-color: #3F51B5" class="calling-ch"></div>
+</div>
 
     <div id="main">
       <div class="flex-fill">
@@ -180,7 +187,7 @@
                     </div>
                     <div class="text" style="margin-top:1cm">
                         <span class="queue lb1 q" style="color: crimson;font-size: 130px;font-weight: bolder">-</span><br />
-                        <span class="lb1 name" style="color: black;font-size: 56px;font-weight: bold">-</span>
+                        <span class="lb1 name" style="color: black;font-size: 40px;font-weight: bold">-</span>
                     </div>
                   </div>
                 </div>
@@ -228,8 +235,9 @@
         }, delay);
       }
 
-      function calling(q) {
-        $("#popup").html(q);
+      function calling(q,ch) {
+        $("#popup .calling-q").html(q);
+        $("#popup .calling-ch").html(ch);
         $("#main").hide();
         $("#popup").fadeIn();
         setTimeout(function() {
@@ -241,21 +249,21 @@
       $(document).ready(function() {
         $("#popup").hide();
         var socket = io("http://192.168.191.101:19009");
-        //  $("#wait").load("wait.php");
+         $("#wait").load("wait.php");
         $("#textMarquee").load("marquee.php");
 
         socket.on("lb1", function(q) {
           $("#wait").load("wait.php?n=0");
           if (q != "s99999") {
-            calling(q);
+            calling(q,"ห้องเจาะเลือด");
             $(".lb1.q").load("calling_q.php?q=" + q);
             $(".lb1.name").load("calling_name.php?q=" + q);
             blinkX(
               function() {
                 $(".lb1").toggleClass("blink");
               },
-              650,
-              22
+              1300,
+              10
             );
           }
         });

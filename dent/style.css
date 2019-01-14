@@ -1,0 +1,47 @@
+.flex-container2 {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flex-container2>div {
+
+    background-color: rgb(252, 239, 124);
+  /* border: 10px solid #551d80; */
+  color: black;
+  padding: 15px;
+  margin: 10px;
+  font-size:3em;
+  text-align: center;
+    font-weight: bolder;
+}
+
+.customers {
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: black;
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 2.5em;
+    font-weight: bold;
+  }
+  
+  
+  .customers tr {
+    border-bottom: 1px solid #E3F1D5;
+    background-color: #FFFFFF;
+  
+  }
+  
+  .customers tr:nth-child(even) {
+    background-color: #C4B5FF;
+  }
+  
+  
+  .customers th {
+    color: #FFFFFF;
+    text-align: center;
+    background: #652299;
+  }

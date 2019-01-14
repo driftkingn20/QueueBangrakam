@@ -6,7 +6,7 @@ if ($q == 's99999') {
     exit;
 }
 
-$sql = "SELECT depq FROM ovst_queue_server_dep q WHERE depq = '$q' and q.date_visit = CURDATE() AND stationno is not null LIMIT 1";
+$sql = "SELECT q.fullname FROM ovst_queue_server q WHERE depq = '$q' and q.date_visit = CURDATE() AND stationno is not null LIMIT 1";
 
 $result = mysqli_query($objCon, $sql);
 $total = mysqli_num_rows($result);
@@ -17,4 +17,4 @@ if ($total < 1) {
 
 $rows = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-echo $rows['depq'];
+echo $rows['fullname'];
